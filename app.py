@@ -221,14 +221,21 @@ if st.session_state.df is not None:
             )
             
             if selected_cols:
-                n_cols = 3
+                n_cols = min(3, len(selected_cols))
                 n_rows = (len(selected_cols) + n_cols - 1) // n_cols
-                fig, axes = plt.subplots(n_rows, n_cols, figsize=(15, 4*n_rows))
-                axes = axes.flatten() if n_rows > 1 else [axes] if len(selected_cols) == 1 else axes
+                fig, axes = plt.subplots(n_rows, n_cols, figsize=(5*n_cols, 4*n_rows))
+                
+                # Ensure axes is always a flat list
+                if n_rows == 1 and n_cols == 1:
+                    axes = [axes]
+                elif n_rows == 1 or n_cols == 1:
+                    axes = list(axes)
+                else:
+                    axes = axes.flatten().tolist()
                 
                 for idx, col in enumerate(selected_cols):
-                    ax = axes[idx] if len(selected_cols) > 1 else axes
-                    df[col].hist(ax=ax, bins=20, color='steelblue', edgecolor='white')
+                    ax = axes[idx]
+                    ax.hist(df[col].dropna(), bins=20, color='steelblue', edgecolor='white')
                     ax.set_title(col)
                     ax.set_xlabel('Value')
                     ax.set_ylabel('Frequency')
