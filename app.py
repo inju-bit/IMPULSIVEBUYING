@@ -509,13 +509,13 @@ if st.session_state.df is not None:
         theoretical relationships between latent constructs in behavioral research.
         """)
         
-        # Block definitions
+        # Block definitions (based on research model)
         blocks = {
-            "PE": ["PE1", "PE2", "PE3", "PE4"],
-            "SE": ["SE1", "SE2", "SE3"],
-            "TP": ["TP1", "TP2", "TP3"],
-            "HB": ["HB1", "HB2", "HB3"],
-            "UB": ["UB1", "UB2", "UB3"]
+            "PE": ["PE1", "PE2", "PE3", "PE4"],      # Physical Environment
+            "SE": ["SE1", "SE2", "SE3"],              # Social Environment
+            "TP": ["TP1", "TP2", "TP3"],              # Time Perspective
+            "HB": ["HB1", "HB2", "HB3"],              # Hedonic Browsing
+            "UB": ["UB1", "UB2", "UB3", "UB4", "UB5"] # Utilitarian Browsing
         }
         
         all_items = [item for items in blocks.values() for item in items]
@@ -530,13 +530,17 @@ if st.session_state.df is not None:
         else:
             st.subheader("Model Structure")
             st.code("""
-    Latent Variables          Path Model
-    ─────────────────────────────────────────────
-    PE1-PE4  →  PE (Performance Expectancy)  ──┐
-    SE1-SE3  →  SE (Self-Efficacy)           ──┤
-    TP1-TP3  →  TP (Trust Perception)        ──┼──→  IB (Target)
-    HB1-HB3  →  HB (Hedonic Benefit)         ──┤
-    UB1-UB3  →  UB (Utilitarian Benefit)     ──┘
+    Latent Variables              Path Model
+    ───────────────────────────────────────────────────
+    PE1-PE4  →  PE (Physical Environment)    ──┐
+                                               │
+    SE1-SE3  →  SE (Social Environment)      ──┤
+                                               │
+    TP1-TP3  →  TP (Time Perspective)        ──┼──→  IB (Impulse Buying)
+                                               │
+    HB1-HB3  →  HB (Hedonic Browsing)        ──┤
+                                               │
+    UB1-UB5  →  UB (Utilitarian Browsing)    ──┘
             """)
             
             col1, col2 = st.columns(2)
@@ -685,19 +689,19 @@ else:
     ### How to use:
     
     1. Upload your CSV file using the sidebar
-    2. Make sure it has columns: PE1-4, SE1-3, TP1-3, HB1-3, UB1-3, IB1-3
+    2. Make sure it has columns: PE1-4, SE1-3, TP1-3, HB1-3, UB1-5, IB1-3
     3. Go through each tab to analyze your data
     
     ### Research Variables:
     
     | Code | Meaning |
     |------|---------|
-    | PE | Performance Expectancy |
-    | SE | Self-Efficacy |
-    | TP | Trust Perception |
-    | HB | Hedonic Benefit |
-    | UB | Utilitarian Benefit |
-    | IB | Impulsive Buying Intention (Target) |
+    | PE | Physical Environment |
+    | SE | Social Environment |
+    | TP | Time Perspective |
+    | HB | Hedonic Browsing |
+    | UB | Utilitarian Browsing |
+    | IB | Impulse Buying (Target) |
     
     ---
     **Upload your data to get started!**
@@ -716,7 +720,8 @@ else:
             'HB1': np.random.randint(1, 6, n), 'HB2': np.random.randint(1, 6, n),
             'HB3': np.random.randint(1, 6, n),
             'UB1': np.random.randint(1, 6, n), 'UB2': np.random.randint(1, 6, n),
-            'UB3': np.random.randint(1, 6, n),
+            'UB3': np.random.randint(1, 6, n), 'UB4': np.random.randint(1, 6, n),
+            'UB5': np.random.randint(1, 6, n),
             'IB1': np.random.randint(1, 6, n), 'IB2': np.random.randint(1, 6, n),
             'IB3': np.random.randint(1, 6, n),
         }
