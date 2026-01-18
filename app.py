@@ -328,15 +328,15 @@ if st.session_state.df is not None:
                     "Select Models:",
                     ["Random Forest", "Extra Trees", "Gradient Boosting", 
                      "XGBoost", "LightGBM", "CatBoost"],
-                    default=["Random Forest", "XGBoost", "LightGBM"]
+                    default=["Random Forest", "XGBoost"]
                 )
             
             col3, col4 = st.columns(2)
             with col3:
                 test_size = st.slider("Test Size:", 0.1, 0.4, 0.2, 0.05)
             with col4:
-                use_optuna = st.checkbox("Use Optuna Optimization", value=False)
-                n_trials = st.number_input("Optuna Trials:", 5, 50, 10, disabled=not use_optuna)
+                use_optuna = st.checkbox("Use Optuna Optimization (slower)", value=False)
+                n_trials = st.number_input("Optuna Trials:", 3, 20, 5, disabled=not use_optuna)
             
             use_oversampling = st.checkbox("Use Random Oversampling (SMOTE)", value=True)
             
@@ -381,15 +381,15 @@ if st.session_state.df is not None:
                         "CatBoost": CatBoostClassifier
                     }
                     
-                    # Default parameters
+                    # Default parameters (optimized for speed)
                     default_params = {
-                        "Random Forest": {"n_estimators": 200, "max_depth": 10, "random_state": 42},
-                        "Extra Trees": {"n_estimators": 200, "max_depth": 10, "random_state": 42},
-                        "Gradient Boosting": {"n_estimators": 100, "max_depth": 5, "random_state": 42},
-                        "XGBoost": {"n_estimators": 200, "max_depth": 6, "eval_metric": "mlogloss", 
-                                   "verbosity": 0, "random_state": 42},
-                        "LightGBM": {"n_estimators": 200, "max_depth": 10, "verbose": -1, "random_state": 42},
-                        "CatBoost": {"iterations": 200, "depth": 6, "verbose": False, "random_state": 42}
+                        "Random Forest": {"n_estimators": 100, "max_depth": 8, "random_state": 42, "n_jobs": -1},
+                        "Extra Trees": {"n_estimators": 100, "max_depth": 8, "random_state": 42, "n_jobs": -1},
+                        "Gradient Boosting": {"n_estimators": 50, "max_depth": 4, "random_state": 42},
+                        "XGBoost": {"n_estimators": 100, "max_depth": 5, "eval_metric": "mlogloss", 
+                                   "verbosity": 0, "random_state": 42, "n_jobs": -1},
+                        "LightGBM": {"n_estimators": 100, "max_depth": 8, "verbose": -1, "random_state": 42, "n_jobs": -1},
+                        "CatBoost": {"iterations": 100, "depth": 5, "verbose": False, "random_state": 42}
                     }
                     
                     progress_bar = st.progress(0)
@@ -571,7 +571,7 @@ if st.session_state.df is not None:
             
             fig, ax = plt.subplots(figsize=(10, 5))
             sorted_df = results_df.sort_values('F1_Loss')
-            colors = plt.cm.rocket(np.linspace(0.2, 0.8, len(sorted_df)))
+            colors = plt.cm.Reds(np.linspace(0.3, 0.8, len(sorted_df)))
             bars = ax.bar(sorted_df['Model'], sorted_df['F1_Loss'], color=colors)
             ax.set_ylabel('Loss (1 - F1)')
             ax.set_title('F1 Loss by Model (Lower is Better)')
