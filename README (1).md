@@ -1,192 +1,117 @@
-# 🧠 Behavioral Intention Classification System
+# Impulsive Buying Behavior Analysis 🛒
 
-**MRes Artificial Intelligence Research Project**  
-**University of Wolverhampton**  
-**By Inju Khadka**
+Hi! I'm **Inju Khadka**, an MRes Artificial Intelligence student at the University of Wolverhampton. This is my research project on analyzing impulsive buying behavior using machine learning and PLS-SEM.
 
----
+## What is this project about?
 
-## 📋 Overview
+For my research, I'm studying what factors influence people's impulsive buying decisions. I collected survey data measuring different psychological constructs and built ML models to predict buying intentions.
 
-This Streamlit application provides a complete machine learning pipeline for analyzing behavioral intention data. It supports:
+## The Variables
 
-- 📊 Exploratory Data Analysis (EDA)
-- 🔗 Cramér's V Correlation Analysis  
-- 🤖 Multiple ML Model Training (Random Forest, XGBoost, LightGBM, CatBoost, etc.)
-- 🔧 Optuna Hyperparameter Optimization
-- 📈 Results Visualization & Comparison
-- ⚖️ Class Imbalance Handling (Random Oversampling)
+My survey measured these factors (each rated 1-5):
 
----
+| Variable | What it measures |
+|----------|------------------|
+| **PE** (PE1-PE4) | Physical Environment - store layout, atmosphere, visual merchandising |
+| **SE** (SE1-SE3) | Social Environment - influence of salespeople, other shoppers |
+| **TP** (TP1-TP3) | Time Perspective - time pressure, shopping duration |
+| **HB** (HB1-HB3) | Hedonic Browsing - enjoyment, fun, pleasure from browsing |
+| **UB** (UB1-UB5) | Utilitarian Browsing - goal-directed, efficient shopping |
+| **IB** (IB1-IB3) | Impulse Buying - the target variable (unplanned purchases) |
 
-## 🚀 Deployment Options
+## What does the app do?
 
-### Option 1: Streamlit Community Cloud (Recommended)
+I built this Streamlit app to make my analysis interactive. It includes:
 
-1. **Push to GitHub:**
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
-   git push -u origin main
-   ```
+1. **Data Overview** - Basic stats about the dataset
+2. **EDA** - Charts showing how responses are distributed
+3. **Correlations** - Cramér's V heatmaps to see relationships
+4. **ML Models** - Train 6 different classifiers:
+   - Random Forest
+   - Extra Trees
+   - Gradient Boosting
+   - XGBoost
+   - LightGBM
+   - CatBoost
+5. **Results** - Compare accuracy, F1 scores, confusion matrices
+6. **PLS-SEM** - Structural equation modeling to test my hypotheses
 
-2. **Deploy on Streamlit Cloud:**
-   - Go to [share.streamlit.io](https://share.streamlit.io)
-   - Click "New app"
-   - Connect your GitHub repository
-   - Select `app.py` as the main file
-   - Click "Deploy"
+## How to run it
 
-### Option 2: Local Deployment
+### Option 1: Streamlit Cloud (easiest)
 
-1. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+The app is deployed at: (https://impulsivebuying-j7tgappvxo9fufbzt2aw7ds.streamlit.app/)
 
-2. **Run the app:**
-   ```bash
-   streamlit run app.py
-   ```
+Just upload your CSV and start analyzing!
 
-3. **Open in browser:**
-   - Navigate to `http://localhost:8501`
+### Option 2: Run locally
 
-### Option 3: Docker Deployment
+```bash
+# Clone the repo
+git clone https://github.com/inju-bit/IMPULSIVEBUYING.git
+cd IMPULSIVEBUYING
 
-1. **Create Dockerfile:**
-   ```dockerfile
-   FROM python:3.10-slim
-   WORKDIR /app
-   COPY requirements.txt .
-   RUN pip install -r requirements.txt
-   COPY . .
-   EXPOSE 8501
-   CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
-   ```
+# Install requirements
+pip install -r requirements.txt
 
-2. **Build and run:**
-   ```bash
-   docker build -t ib-classifier .
-   docker run -p 8501:8501 ib-classifier
-   ```
-
-### Option 4: Heroku Deployment
-
-1. **Create `Procfile`:**
-   ```
-   web: sh setup.sh && streamlit run app.py
-   ```
-
-2. **Create `setup.sh`:**
-   ```bash
-   mkdir -p ~/.streamlit/
-   echo "[server]\nheadless = true\nport = $PORT\nenableCORS = false\n" > ~/.streamlit/config.toml
-   ```
-
-3. **Deploy:**
-   ```bash
-   heroku create your-app-name
-   git push heroku main
-   ```
-
----
-
-## 📁 Project Structure
-
-```
-streamlit_app/
-├── app.py                 # Main Streamlit application
-├── requirements.txt       # Python dependencies
-├── README.md             # This file
-└── .streamlit/
-    └── config.toml       # Streamlit configuration
+# Run the app
+streamlit run app.py
 ```
 
----
+Then open http://localhost:8501 in your browser.
 
-## 📊 Expected Data Format
+## Data Format
 
-The application expects a CSV file with the following columns:
+Your CSV should look like this:
 
-| Category | Columns | Description |
-|----------|---------|-------------|
-| **PE** | PE1, PE2, PE3, PE4 | Performance Expectancy (1-5 scale) |
-| **SE** | SE1, SE2, SE3 | Self-Efficacy (1-5 scale) |
-| **TP** | TP1, TP2, TP3 | Trust Perception (1-5 scale) |
-| **HB** | HB1, HB2, HB3 | Hedonic Benefit (1-5 scale) |
-| **UB** | UB1, UB2, UB3 | Utilitarian Benefit (1-5 scale) |
-| **IB** | IB1, IB2, IB3 | Behavioral Intention - **Target Variables** (1-5 scale) |
+| PE1 | PE2 | PE3 | PE4 | SE1 | SE2 | SE3 | TP1 | TP2 | TP3 | HB1 | HB2 | HB3 | UB1 | UB2 | UB3 | UB4 | UB5 | IB1 | IB2 | IB3 |
+|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+| 4 | 5 | 3 | 4 | 5 | 4 | 4 | 3 | 4 | 3 | 4 | 5 | 4 | 3 | 4 | 3 | 4 | 5 | 3 | 4 | 3 |
 
----
+All values should be 1-5 (Likert scale).
 
-## 🤖 Supported Models
+## Screenshots
 
-| Model | Description |
-|-------|-------------|
-| Random Forest | Ensemble of decision trees with bagging |
-| Extra Trees | Extremely randomized trees |
-| Gradient Boosting | Sequential boosting with gradient descent |
-| XGBoost | Optimized gradient boosting |
-| LightGBM | Fast gradient boosting with histogram-based learning |
-| CatBoost | Gradient boosting with categorical feature support |
+*(coming soon)*
 
----
+## Results Summary
 
-## ⚙️ Features
+From my analysis:
+- XGBoost and Random Forest generally performed best
+- The PLS-SEM showed that Hedonic Benefit (HB) has the strongest influence on impulsive buying
+- Trust Perception (TP) also plays a significant role
 
-### Data Analysis
-- Automatic variable type detection
-- Missing value analysis
-- Distribution visualizations
+## Tech Stack
 
-### Correlation Analysis
-- Cramér's V for categorical variables
-- Pearson correlation for numeric variables
-- Interactive heatmaps
+- Python 3.10+
+- Streamlit (for the web app)
+- Scikit-learn, XGBoost, LightGBM, CatBoost (for ML)
+- Matplotlib, Seaborn (for visualization)
+- Pandas, NumPy (for data processing)
 
-### Model Training
-- Multiple model selection
-- Train/test split configuration
-- Random Oversampling for imbalanced data
-- Optional Optuna hyperparameter optimization
+## Files
 
-### Results
-- Accuracy, Precision, Recall, F1 metrics
-- Confusion matrices for all models
-- Loss analysis (1 - F1)
-- CSV export functionality
+```
+├── app.py              # Main Streamlit application
+├── requirements.txt    # Python dependencies
+└── README.md          # This file
+```
+
+## Contact
+
+If you have questions about my research or the app:
+
+- **Name:** Inju Khadka
+- **Program:** MRes Artificial Intelligence
+- **University:** University of Wolverhampton
+- **Year:** 2025
+
+## Acknowledgments
+
+Thanks to my supervisor and the University of Wolverhampton for supporting this research.
 
 ---
 
-## 📝 Usage
+*This project is part of my MRes dissertation research.*
 
-1. **Upload Data**: Use the sidebar to upload your CSV file
-2. **Explore**: Navigate through tabs to view data analysis
-3. **Train**: Select models and configure training parameters
-4. **Evaluate**: View results, confusion matrices, and download reports
-
----
-
-## 🔧 Configuration
-
-Edit `.streamlit/config.toml` to customize:
-- Theme colors
-- Upload file size limits
-- Server settings
-
----
-
-## 📄 License
-
-This project is part of academic research at the University of Wolverhampton.
-
----
-
-## 📧 Contact
-
-**Inju Khadka**  
-MRes Artificial Intelligence  
 University of Wolverhampton
