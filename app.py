@@ -608,7 +608,8 @@ if st.session_state.df is not None:
                     
                     # Path coefficients
                     st.subheader("Path Coefficients")
-                    coef_df = pd.DataFrame(pls.coef_, index=block_names, columns=available)
+                    # pls.coef_ shape is (n_targets, n_features), need to transpose
+                    coef_df = pd.DataFrame(pls.coef_.T, index=block_names, columns=available)
                     
                     fig, ax = plt.subplots(figsize=(10, 6))
                     sns.heatmap(coef_df, annot=True, cmap="RdYlGn", center=0, fmt=".3f", ax=ax)
