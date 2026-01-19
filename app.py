@@ -252,8 +252,7 @@ if st.session_state.df is not None:
                 plt.tight_layout()
                 st.pyplot(fig)
                 plt.close()
-        
-        
+    
     # ============ TAB 4: ML MODELS ============
     with tab4:
         st.header("🤖 Machine Learning Models")
@@ -360,7 +359,7 @@ if st.session_state.df is not None:
                                 return f1_score(y_test, m.predict(X_test), average='weighted')
                             
                             study = optuna.create_study(direction="maximize")
-                            study.optimize(objective, n_trials=5, show_progress_bar=False)
+                            study.optimize(objective, n_trials=10, show_progress_bar=False)
                             params.update(study.best_params)
                         
                         model = cls(**params)
@@ -669,7 +668,7 @@ else:
     
     - **📊 Data Overview** - Check your dataset stats and preview
     - **🔍 EDA** - Explore variable distributions and patterns
-    - **🔗 Correlations** - Cramér's V and Pearson correlation matrices
+    - **🔗 Correlations** - Cramér's V correlation matrix
     - **🤖 ML Models** - Train and compare 6 different classifiers
     - **📈 Results** - Visualize model performance
     - **📐 PLS-SEM** - Test theoretical relationships between constructs
