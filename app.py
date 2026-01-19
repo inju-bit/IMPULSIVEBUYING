@@ -106,7 +106,7 @@ with st.sidebar:
     st.markdown("**Supervisor:** Dr. Tahir Mahmood")
     st.markdown("**Submission Date:** 7 January 2026")
     st.markdown("**Program:** MRes Artificial Intelligence")
-    st.markdown("**Module Code: ** 7CS113")
+    st.markdown("**Module Code:** 7CS113")
     st.markdown("**University:** Wolverhampton")
 
 # Main content
