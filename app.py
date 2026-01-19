@@ -670,7 +670,7 @@ else:
     
     - **📊 Data Overview** - Check your dataset stats and preview
     - **🔍 EDA** - Explore variable distributions and patterns
-    - **🔗 Correlations** - Cramér's V and Pearson correlation matrices
+    - **🔗 Correlations** - Cramér's V 
     - **🤖 ML Models** - Train and compare 6 different classifiers
     - **📈 Results** - Visualize model performance
     - **📐 PLS-SEM** - Test theoretical relationships between constructs
