@@ -69,12 +69,7 @@ st.markdown("""
 
 # Header
 st.markdown('<p class="main-title">🛒 Impulsive Buying Behavior Analysis</p>', unsafe_allow_html=True)
-st.markdown('<p class="subtitle">| Inju Khadka|
-                                  Student ID:2513941 |
-                                  Supervisor: Dr. Tahir Mahmood|
-                                  Submission Date: 7 January 2026|
-                                  MRes Artificial Intelligence Research (7CS113)|
-                                  University of Wolverhampton</p>', unsafe_allow_html=True)
+st.markdown('<p class="subtitle">| Inju Khadka | Student ID:2513941 | Supervisor: Dr. Tahir Mahmood | Submission Date: 7 January 2026 | MRes Artificial Intelligence Research (7CS113)| University of Wolverhampton</p>', unsafe_allow_html=True)
 
 # Session state
 if 'df' not in st.session_state:
