@@ -664,7 +664,7 @@ else:
     ## Welcome! 👋
     
     This is my MRes research project predicting and analyzing **impulsive buying behavior** using machine learning
-    and structural equation modeling.
+    and structural equation modeling- PLS-SEM.
     
     ### What this app does:
     
