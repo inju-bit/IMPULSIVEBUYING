@@ -1,4 +1,5 @@
 Impulsive Buying Behavior Analysis 🛒
+
 Hi! I'm Inju Khadka, an MRes Artificial Intelligence student at the University of Wolverhampton. This is my research project on analyzing impulsive buying behavior using machine learning and PLS-SEM.
 
 What is this project about?
