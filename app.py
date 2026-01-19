@@ -253,18 +253,7 @@ if st.session_state.df is not None:
                 st.pyplot(fig)
                 plt.close()
         
-        # Pearson correlation
-        st.subheader("Pearson Correlation (Numeric)")
-        numeric_df = df.select_dtypes(include=[np.number])
-        
-        if len(numeric_df.columns) > 1:
-            fig, ax = plt.subplots(figsize=(12, 10))
-            corr = numeric_df.corr()
-            sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f", ax=ax, center=0)
-            ax.set_title("Pearson Correlation Matrix", fontsize=14)
-            plt.tight_layout()
-            st.pyplot(fig)
-            plt.close()
+    
     
     # ============ TAB 4: ML MODELS ============
     with tab4:
