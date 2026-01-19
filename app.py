@@ -663,7 +663,7 @@ else:
     st.markdown("""
     ## Welcome! 👋
     
-    This is my MRes research project analyzing **impulsive buying behavior** using machine learning
+    This is my MRes research project predicting and analyzing **impulsive buying behavior** using machine learning
     and structural equation modeling.
     
     ### What this app does:
