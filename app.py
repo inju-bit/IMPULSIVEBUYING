@@ -358,9 +358,19 @@ if st.session_state.df is not None:
                                 m.fit(X_train, y_train)
                                 return f1_score(y_test, m.predict(X_test), average='weighted')
                             
-                            study = optuna.create_study(direction="maximize")
-                            study.optimize(objective, n_trials=10, show_progress_bar=True)
-                            params.update(study.best_params)
+                             study = optuna.create_study(direction="maximize")
+
+                             # Optuna progress bar
+                             optuna_progress = st.progress(0, text=f"Optuna tuning {name}...")
+                             n_trials = 10
+
+                             def optuna_callback(study, trial):
+                               optuna_progress.progress((trial.number + 1) / n_trials, 
+                                                      text=f"Optuna trial {trial.number + 1}/{n_trials}")
+
+                            study.optimize(objective, n_trials=n_trials, show_progress_bar=False, 
+                                          callbacks=[optuna_callback])
+                            optuna_progress.empty()
                         
                         model = cls(**params)
                         model.fit(X_train, y_train)
