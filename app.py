@@ -282,6 +282,12 @@ if st.session_state.df is not None:
             with col4:
                 use_optuna = st.checkbox("Optuna Tuning (slower)", value=False)
             
+            # Show number of trials option when Optuna is enabled
+            if use_optuna:
+                n_trials = st.slider("Number of Optuna Trials:", 5, 50, 10, 5)
+            else:
+                n_trials = 10
+            
             oversample = st.checkbox("Use Oversampling", value=True)
             
             if st.button("🚀 Train Models", type="primary"):
@@ -336,6 +342,7 @@ if st.session_state.df is not None:
                         cls, params = model_configs[name]
                         
                         if use_optuna and name in ["Random Forest", "XGBoost", "LightGBM"]:
+                            # Create objective function
                             def objective(trial):
                                 if name == "Random Forest":
                                     p = {"n_estimators": trial.suggest_int("n_estimators", 50, 300),
@@ -349,7 +356,7 @@ if st.session_state.df is not None:
                                          "eval_metric": "mlogloss", "verbosity": 0,
                                          "random_state": 42, "n_jobs": -1}
                                     m = xgb.XGBClassifier(**p)
-                                else:
+                                else:  # LightGBM
                                     p = {"n_estimators": trial.suggest_int("n_estimators", 50, 300),
                                          "max_depth": trial.suggest_int("max_depth", 3, 12),
                                          "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.3),
@@ -358,19 +365,26 @@ if st.session_state.df is not None:
                                 m.fit(X_train, y_train)
                                 return f1_score(y_test, m.predict(X_test), average='weighted')
                             
-                             study = optuna.create_study(direction="maximize")
-
-                             # Optuna progress bar
-                             optuna_progress = st.progress(0, text=f"Optuna tuning {name}...")
-                             n_trials = 10
-
-                             def optuna_callback(study, trial):
-                               optuna_progress.progress((trial.number + 1) / n_trials, 
-                                                      text=f"Optuna trial {trial.number + 1}/{n_trials}")
-
-                            study.optimize(objective, n_trials=n_trials, show_progress_bar=False, 
+                            # Create study
+                            study = optuna.create_study(direction="maximize")
+                            
+                            # Optuna progress bar
+                            optuna_progress = st.progress(0, text=f"🔧 Optuna tuning {name}...")
+                            
+                            def optuna_callback(study, trial):
+                                optuna_progress.progress(
+                                    (trial.number + 1) / n_trials,
+                                    text=f"🔧 Optuna tuning {name}: Trial {trial.number + 1}/{n_trials} | Best F1: {study.best_value:.4f}"
+                                )
+                            
+                            study.optimize(objective, n_trials=n_trials, show_progress_bar=False,
                                           callbacks=[optuna_callback])
                             optuna_progress.empty()
+                            
+                            # Update params with best values
+                            params = params.copy()
+                            params.update(study.best_params)
+                            st.write(f"✅ Best params for {name}: {study.best_params}")
                         
                         model = cls(**params)
                         model.fit(X_train, y_train)
@@ -731,3 +745,7 @@ st.markdown(
     "<p style='text-align:center; color:gray;'>Made by Inju Khadka | MRes Artificial Intelligence | University of Wolverhampton | 2025</p>",
     unsafe_allow_html=True
 )
+
+
+
+
