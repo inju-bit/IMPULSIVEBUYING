@@ -69,7 +69,7 @@ st.markdown("""
 
 # Header
 st.markdown('<p class="main-title">🛒 Impulsive Buying Behavior Analysis</p>', unsafe_allow_html=True)
-st.markdown('<p class="subtitle">| MRes Artificial Intelligence Research (7CS113)| Inju Khadka | University of Wolverhampton</p>', unsafe_allow_html=True)
+st.markdown('<p class="subtitle">| MRes Artificial Intelligence Research| Inju Khadka | University of Wolverhampton</p>', unsafe_allow_html=True)
 
 # Session state
 if 'df' not in st.session_state:
