@@ -4,12 +4,12 @@ Hi! I'm **Inju Khadka**, an MRes Artificial Intelligence student at the Universi
 
 ## What is this project about?
 
-For my research, I'm studying what factors influence people's impulsive buying decisions. I collected survey data measuring different psychological constructs and built ML models to predict buying intentions.
+For my research, I'm studying what factors influence people's impulsive buying decisions. I used collected survey data measuring different psychological constructs and built ML models to predict buying intentions.
 
 ## The Variables
 
 My survey measured these factors (each rated 1-5):
-
+ 
 | Variable | What it measures |
 |----------|------------------|
 | **PE** (PE1-PE4) | Physical Environment - store layout, atmosphere, visual merchandising |
