@@ -81,7 +81,7 @@ if 'trained_models' not in st.session_state:
 
 # Sidebar
 with st.sidebar:
-    st.title("🎯 Navigation")
+    st.title("🎯 PREDICTION")
     st.markdown("---")
     
     uploaded_file = st.file_uploader("📂 Upload your CSV data", type=['csv'])
@@ -95,7 +95,7 @@ with st.sidebar:
     st.info("""
     This app analyzes impulsive buying behavior using:
     - 📊 Exploratory Data Analysis
-    - 🔗 Cramér's V Correlation
+    - 🔗 Cramér's V Correlation 
     - 🤖 Machine Learning Models
     - 📐 PLS-SEM Analysis
     """)
