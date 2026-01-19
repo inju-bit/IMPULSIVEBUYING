@@ -697,10 +697,10 @@ else:
     | IB | Impulse Buying (Target) |
     
     ---
-    **Upload your data to get started!**
+    **🧪 Try with Sample Data!**
     """)
     
-    if st.button("🧪 Try with Sample Data"):
+    if st.button("Sample Data"):
         np.random.seed(42)
         n = 200
         sample = {
