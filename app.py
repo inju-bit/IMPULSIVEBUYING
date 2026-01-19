@@ -359,7 +359,7 @@ if st.session_state.df is not None:
                                 return f1_score(y_test, m.predict(X_test), average='weighted')
                             
                             study = optuna.create_study(direction="maximize")
-                            study.optimize(objective, n_trials=10, show_progress_bar=False)
+                            study.optimize(objective, n_trials=10, show_progress_bar=True)
                             params.update(study.best_params)
                         
                         model = cls(**params)
